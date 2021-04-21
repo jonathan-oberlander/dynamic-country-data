@@ -1,17 +1,38 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { getAllCountries } from "../app/api";
+import { $search } from "../app/store";
+import { ReactComponent as Magnifier } from "../assets/search.svg";
+import { ReactComponent as Close } from "../assets/close.svg";
 
 export const Search = () => {
   const [search, setSearch] = useState<string>("");
 
+  useEffect(() => {
+    getAllCountries();
+  }, []);
+
   const onInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
+    const val = e.target.value;
+    setSearch(val);
+    $search.next(val);
+  };
+
+  const onClick = () => {
+    setSearch("");
+    $search.next("");
   };
 
   return (
     <Field>
-      <Input value={search.toUpperCase()} type="text" onInput={onInput} />
-      <Reset />
+      <Magnifier />
+      <Input
+        placeholder="Search by country..."
+        type="text"
+        value={search.toUpperCase()}
+        onInput={onInput}
+      />
+      <Close onClick={onClick} />
     </Field>
   );
 };

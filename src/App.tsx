@@ -1,18 +1,12 @@
-import React from "react";
 import { Body } from "./components/body";
-import { Card } from "./components/card";
+import { CountryList } from "./components/country-list";
 import { Search } from "./components/search";
 
 function App() {
   return (
     <Body>
       <Search />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
+      <CountryList />
     </Body>
   );
 }
