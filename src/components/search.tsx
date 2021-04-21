@@ -25,23 +25,17 @@ export const Search = () => {
 
   return (
     <Field>
-      <Magnifier />
+      <Magnifier viewBox="0 0 20 20" />
       <Input
         placeholder="Search by country..."
         type="text"
         value={search.toUpperCase()}
         onInput={onInput}
       />
-      <Close onClick={onClick} />
+      <Close viewBox="0 0 20 20" onClick={onClick} />
     </Field>
   );
 };
-
-const Reset = styled.div`
-  height: 20px;
-  width: 20px;
-  border: 1px solid black;
-`;
 
 const Input = styled.input`
   border: none;
@@ -51,13 +45,17 @@ const Input = styled.input`
   -moz-box-shadow: none;
   box-shadow: none;
   font-family: Lato;
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: normal;
   font-stretch: normal;
   font-style: normal;
-  line-height: 32px;
+  line-height: 1.5;
   letter-spacing: normal;
-  width: auto;
+  width: 100%;
+  color: ${({ theme }) => theme.fontColor.primary};
+  caret-color: ${({ theme }) => theme.color.accent1};
+  padding-left: ${({ theme }) => theme.spacing.s};
+  padding-right: ${({ theme }) => theme.spacing.s};
   outline: none;
   &:focus {
     border: none;

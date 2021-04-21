@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Title = styled.div`
+export const Title = styled.span`
   font-family: Lato;
   font-size: 20px;
   font-weight: 600;
@@ -10,7 +10,7 @@ export const Title = styled.div`
   letter-spacing: normal;
 `;
 
-export const Caption = styled.div`
+export const Caption = styled.span`
   font-family: Lato;
   font-size: 12px;
   font-weight: normal;

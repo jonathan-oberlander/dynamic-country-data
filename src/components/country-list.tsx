@@ -1,5 +1,5 @@
 import { $list, useObservable } from "../app/store";
-import { Card, CountryCard } from "./country-card";
+import { CountryCard } from "./country-card";
 import { Title } from "./typography";
 
 export const CountryList = () => {

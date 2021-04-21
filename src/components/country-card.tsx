@@ -1,20 +1,11 @@
+import { useContext } from "react";
 import styled from "styled-components";
+import { GlobalContext } from "../app/store";
 import { Country } from "../app/types";
+import { getDistanceInKm } from "../app/utils";
 import { Caption, Small, Title } from "./typography";
-
-function shortFormat(val: number) {
-  return new Intl.NumberFormat("en-IN", {
-    maximumSignificantDigits: 6,
-  }).format(val);
-}
-
-const funcFromOperator = (op: string) => {
-  console.log(op);
-  return {
-    "+": (x: number, y: number) => x + y,
-    "-": (x: number, y: number) => x - y,
-  }[op];
-};
+import { ReactComponent as User } from "../assets/user.svg";
+import { ReactComponent as Plane } from "../assets/plane.svg";
 
 export const CountryCard: React.FC<{ country: Country }> = ({ country }) => {
   const {
@@ -28,29 +19,65 @@ export const CountryCard: React.FC<{ country: Country }> = ({ country }) => {
     latlng,
   } = country;
 
+  const { state } = useContext(GlobalContext);
+
+  const distance = () => {
+    return state.position
+      ? getDistanceInKm(
+          latlng[0],
+          state.position[0],
+          latlng[0],
+          state.position[1]
+        )
+      : "";
+  };
+
   return (
     <Card>
       <CardHead>
         <Flag src={flag} alt={`${name}'s national flag.`} />
-        <CountryName>{name}</CountryName>
-        {currencies.map((c, i) => (
-          <Currency key={c.name}>{c.symbol}</Currency>
-        ))}
-        <Caption>
-          {timezones.map((utc, i) => (
-            <span key={utc + i}>{utc}</span>
-          ))}
-        </Caption>
+
+        <div className="country">
+          <div className="title">
+            <CountryName>{name}</CountryName>
+            {currencies.map((c, i) => (
+              <Currency key={c.name}>{c.symbol}</Currency>
+            ))}
+          </div>
+          <div className="time">
+            <Caption>
+              {timezones.map((utc, i) => (
+                <span key={utc + i}>{utc}</span>
+              ))}
+            </Caption>
+          </div>
+        </div>
       </CardHead>
-      <Caption>Capital: {capital}</Caption>
-      <Caption>
-        <span>Languages: </span>
-        {languages.map((l) => (
-          <span key={l.iso639_1}>{l.name}, </span>
-        ))}
-      </Caption>
-      <SmallData>{shortFormat(population)}</SmallData>
-      <SmallData>{JSON.stringify(latlng)}</SmallData>
+
+      <CardBody>
+        <div>
+          <Caption>Capital: {capital}</Caption>
+        </div>
+        <div>
+          <Caption>
+            <span>Languages: </span>
+            {languages.map((l) => (
+              <span key={l.iso639_1}>{l.name}, </span>
+            ))}
+          </Caption>
+        </div>
+      </CardBody>
+
+      <Infos>
+        <Info>
+          <User />
+          <SmallData>{population}</SmallData>
+        </Info>
+        <Info>
+          <Plane />
+          <SmallData>{distance()}</SmallData>
+        </Info>
+      </Infos>
     </Card>
   );
 };
@@ -60,22 +87,42 @@ export const CountryCard: React.FC<{ country: Country }> = ({ country }) => {
 //   flex-direction: column;
 // `;
 
+// const CountryInfo = styled.div`
+//   display: flex;
+//   flex-direction: column;
+// `;
+
+export const Card = styled.div`
+  height: 148px;
+  margin-bottom: ${({ theme }) => theme.spacing.s};
+  padding: ${({ theme }) => theme.spacing.s};
+  background-color: ${({ theme }) => theme.color.white};
+  border-radius: 4px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+`;
+
 const CardHead = styled.div`
   display: flex;
-`;
-
-const CountryName = styled(Title)`
-  color: ${({ theme }) => theme.color.brand};
-`;
-
-const SmallData = styled(Small)`
-  color: ${({ theme }) => theme.color.accent1};
+  height: 40px;
+  .country {
+    width: 100%;
+    margin-left: 26px;
+    .title {
+      display: flex;
+      align-items: center;
+    }
+    .time {
+      color: ${({ theme }) => theme.fontColor.secondary};
+    }
+  }
 `;
 
 const Currency = styled.span`
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
+  margin-left: ${({ theme }) => theme.spacing.s};
   width: 16px;
   height: 16px;
   background-color: ${({ theme }) => theme.color.currency};
@@ -86,15 +133,30 @@ const Currency = styled.span`
 export const Flag = styled.img`
   width: 56px;
   height: 40px;
-  margin: 4px 26px 20px 0;
+  border-radius: 1.6px;
+  /* margin: 4px 26px 20px 0; */
   background-color: ${({ theme }) => theme.color.shade};
+  object-fit: cover;
 `;
 
-export const Card = styled.div`
-  height: 148px;
-  margin-bottom: ${({ theme }) => theme.spacing.s};
-  padding: ${({ theme }) => theme.spacing.s};
-  background-color: ${({ theme }) => theme.color.white};
-  border-radius: 4px;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+const CountryName = styled(Title)`
+  color: ${({ theme }) => theme.color.brand};
+`;
+
+const CardBody = styled.div`
+  margin-top: ${({ theme }) => theme.spacing.l};
+  margin-bottom: ${({ theme }) => theme.spacing.m};
+`;
+
+const Infos = styled.div`
+  /* border: 1px solid black; */
+`;
+
+const Info = styled.span`
+  margin-right: ${({ theme }) => theme.spacing.m};
+`;
+
+const SmallData = styled(Small)`
+  color: ${({ theme }) => theme.color.accent1};
+  margin-left: ${({ theme }) => theme.spacing.xxs};
 `;

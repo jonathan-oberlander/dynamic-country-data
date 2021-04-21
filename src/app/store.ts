@@ -1,14 +1,15 @@
 import { getAllCountries, getCountryByName } from "./api";
 import { Country } from "./types";
-import { BehaviorSubject, Observable, of } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import {
   debounceTime,
   distinctUntilChanged,
   switchMap,
   tap,
 } from "rxjs/operators";
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
+// search data stream
 export const $list = new BehaviorSubject<Country[] | "pending" | "error">([]);
 export const $search = new BehaviorSubject<string>("");
 $search
@@ -25,6 +26,7 @@ $search
     error: () => $list.next("error"),
   });
 
+// provide the data stream to a component
 export const useObservable = <T>(observable: Observable<T>) => {
   const [state, setState] = useState<T>();
 
@@ -35,3 +37,32 @@ export const useObservable = <T>(observable: Observable<T>) => {
 
   return state;
 };
+
+// global context
+// global context
+
+export type State = {
+  position: number[];
+};
+
+export const initialState = {
+  position: [] as number[],
+};
+
+type AppContext = { dispatch: (v: any) => void; state: State };
+
+export const GlobalContext = createContext<AppContext>({} as AppContext);
+
+type Actions = { type: "setGeo"; payload: number[] };
+
+export function appReducer(state: State, action: Actions) {
+  switch (action.type) {
+    case "setGeo":
+      return {
+        ...state,
+        position: action.payload,
+      };
+    default:
+      throw new Error();
+  }
+}
