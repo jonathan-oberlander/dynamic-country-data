@@ -1,7 +1,7 @@
 import { useEffect, useReducer } from "react";
-import { appReducer, GlobalContext, initialState } from "./app/store";
+import { appReducer, GlobalContext, initialState } from "./app/state";
 import { Body } from "./components/body";
-import { CountryList } from "./components/country-list";
+import { LanguageFilter } from "./components/country-list";
 import { Search } from "./components/search";
 
 function App() {
@@ -14,7 +14,6 @@ function App() {
           position.coords.latitude,
           position.coords.longitude,
         ];
-        console.log(here);
         dispatch({ type: "setGeo", payload: here });
       },
       (error) => {
@@ -27,7 +26,7 @@ function App() {
     <GlobalContext.Provider value={{ dispatch, state }}>
       <Body>
         <Search />
-        <CountryList />
+        <LanguageFilter />
       </Body>
     </GlobalContext.Provider>
   );

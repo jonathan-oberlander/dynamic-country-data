@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getAllCountries } from "../app/api";
-import { $search } from "../app/store";
+import { $fetching, $search, useObservable } from "../app/stream";
 import { ReactComponent as Magnifier } from "../assets/search.svg";
 import { ReactComponent as Close } from "../assets/close.svg";
+import { Small } from "./typography";
 
 export const Search = () => {
   const [search, setSearch] = useState<string>("");
+  const fetching = useObservable($fetching);
 
   useEffect(() => {
     getAllCountries();
@@ -32,6 +34,7 @@ export const Search = () => {
         value={search.toUpperCase()}
         onInput={onInput}
       />
+      {fetching && <Small>loading...</Small>}
       <Close viewBox="0 0 20 20" onClick={onClick} />
     </Field>
   );

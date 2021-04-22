@@ -1,19 +1,14 @@
-import { $list, useObservable } from "../app/store";
+import { useState } from "react";
+import { $list, useObservable } from "../app/stream";
+import { Country } from "../app/types";
 import { CountryCard } from "./country-card";
-import { Title } from "./typography";
 
-export const CountryList = () => {
-  const list = useObservable($list);
+export const CountryList: React.FC<{ list: Country[] | undefined }> = ({
+  list,
+}) => {
+  // TODO: create the MockCard Component with skeleton text
 
-  if (list === "error") {
-    return <Title>Error</Title>;
-  }
-
-  if (list === "pending") {
-    return <Title>Loading...</Title>;
-  }
-
-  if (list?.length) {
+  if (list) {
     return (
       <>
         {list?.map((country) => (
@@ -24,4 +19,36 @@ export const CountryList = () => {
   }
 
   return <div />;
+};
+
+export const LanguageFilter = () => {
+  // provide the observable stream
+  // think about moving that in globa state somehow...
+  const list = useObservable($list);
+  const [lang, setLang] = useState("All");
+
+  // put that in a selector...
+  const filterList = (list: Country[] | undefined) =>
+    (list &&
+      lang !== "All" &&
+      list.filter(
+        (c) => c.languages.find((l) => l.name === lang) !== undefined
+      )) ||
+    list;
+
+  const onChange = (event: any) => {
+    setLang(event.target.value);
+  };
+
+  return (
+    <>
+      <select value={lang} onChange={onChange}>
+        <option value="All">All</option>
+        <option value="English">English</option>
+        <option value="Spanish">Spanish</option>
+        <option value="French">French</option>
+      </select>
+      <CountryList list={filterList(list)} />
+    </>
+  );
 };
