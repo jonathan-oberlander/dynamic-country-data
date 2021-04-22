@@ -1,8 +1,8 @@
 import { useEffect, useReducer } from "react";
 import { appReducer, GlobalContext, initialState } from "./app/state";
-import { Body } from "./components/body";
-import { LanguageFilter } from "./components/country-list";
-import { Search } from "./components/search";
+import { Body } from "./components/body/body";
+import { LanguageFilter } from "./components/language-filter/language-filter";
+import { Search } from "./components/search/search";
 
 function App() {
   const [state, dispatch] = useReducer(appReducer, initialState);
