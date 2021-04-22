@@ -4,13 +4,15 @@ import { createContext } from "react";
 // types
 export type State = {
   coord: number[];
+  city: string;
 };
 type AppContext = { dispatch: (v: any) => void; state: State };
-type Actions = { type: "setGeo"; payload: number[] };
+type Actions = { type: "setGeo"; payload: { here: number[]; city: string } };
 
 // init
 export const initialState = {
   coord: [] as number[],
+  city: "",
 };
 
 // reducer, typescript will infer the action types, super handy :)
@@ -20,7 +22,8 @@ export function appReducer(state: State, action: Actions) {
     case "setGeo":
       return {
         ...state,
-        coord: action.payload,
+        coord: action.payload.here,
+        city: action.payload.city,
       };
     default:
       throw new Error();

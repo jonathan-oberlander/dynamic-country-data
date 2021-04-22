@@ -27,7 +27,7 @@ export const Search = () => {
 
   return (
     <Field>
-      <Magnifier viewBox="0 0 20 20" />
+      <Magnifier viewBox="2 0 21 21" />
       <Input
         placeholder="Search by country..."
         type="text"
@@ -35,7 +35,7 @@ export const Search = () => {
         onInput={onInput}
       />
       {fetching && <Small>loading...</Small>}
-      <Close viewBox="0 0 20 20" onClick={onClick} />
+      <Close viewBox="0 0 17 17" onClick={onClick} />
     </Field>
   );
 };

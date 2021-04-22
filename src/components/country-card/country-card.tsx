@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../app/state";
 import { Country } from "../../app/types";
 import {
@@ -19,7 +19,15 @@ import {
   Infos,
   Info,
   SmallData,
+  Capital,
+  CapitalName,
+  CapitalTime,
+  CountryMain,
+  CountryTitle,
+  Languages,
+  LanguagesName,
 } from "./country-card.style";
+import { device } from "../styled/theme";
 
 export const CountryCard: React.FC<{ country: Country }> = ({ country }) => {
   const {
@@ -34,6 +42,7 @@ export const CountryCard: React.FC<{ country: Country }> = ({ country }) => {
   } = country;
 
   const { state } = useContext(GlobalContext);
+  const isBig = useMediaQuery(device.mobileL);
 
   const distance = () => {
     return state.coord
@@ -45,26 +54,28 @@ export const CountryCard: React.FC<{ country: Country }> = ({ country }) => {
     <Card>
       <CardHead>
         <Flag src={flag} alt={`${name}'s national flag.`} />
-        <div className="country">
-          <div className="title">
+        <CountryTitle>
+          <CountryMain>
             <CountryName>{name}</CountryName>
             <Currency>{currencies[0].symbol}</Currency>
-          </div>
-          <div className="time">
-            <Caption>{countryCapitalTime(alpha2Code)}</Caption>
-          </div>
-        </div>
+          </CountryMain>
+          <CapitalTime>{countryCapitalTime(alpha2Code)}</CapitalTime>
+        </CountryTitle>
       </CardHead>
 
       <CardBody>
         <div>
-          <Caption>Capital: {capital}</Caption>
+          <Capital>Capital:</Capital>
+          <CapitalName>{capital}</CapitalName>
         </div>
         <div className="languages">
           <Caption>
-            <span>Languages: </span>
-            {languages.slice(0, 3).map((l) => (
-              <span key={l.iso639_1}>{l.name}, </span>
+            <Languages>Languages:</Languages>
+            {languages.slice(0, 3).map((l, i) => (
+              <LanguagesName key={l.iso639_1}>
+                {l.name}
+                {i !== languages.length - 1 && <span>, </span>}
+              </LanguagesName>
             ))}
           </Caption>
         </div>
@@ -77,9 +88,30 @@ export const CountryCard: React.FC<{ country: Country }> = ({ country }) => {
         </Info>
         <Info>
           <Plane />
-          <SmallData>{distance()}</SmallData>
+          <SmallData>
+            {distance()}
+            {isBig && <span> from {state.city}.</span>}
+          </SmallData>
         </Info>
       </Infos>
     </Card>
   );
 };
+
+export function useMediaQuery(query: string) {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia(query);
+    if (media.matches !== matches) {
+      setMatches(media.matches);
+    }
+    const listener = () => {
+      setMatches(media.matches);
+    };
+    media.addListener(listener);
+    return () => media.removeListener(listener);
+  }, [matches, query]);
+
+  return matches;
+}

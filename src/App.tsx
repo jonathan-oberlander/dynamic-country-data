@@ -1,4 +1,5 @@
 import { useEffect, useReducer } from "react";
+import { getCurrentCityName } from "./app/api";
 import { appReducer, GlobalContext, initialState } from "./app/state";
 import { Body } from "./components/body/body";
 import { LanguageFilter } from "./components/language-filter/language-filter";
@@ -14,7 +15,13 @@ function App() {
           position.coords.latitude,
           position.coords.longitude,
         ];
-        dispatch({ type: "setGeo", payload: here });
+
+        const fetchCity = async function () {
+          const city = await getCurrentCityName(here);
+          dispatch({ type: "setGeo", payload: { here, city } });
+        };
+
+        fetchCity();
       },
       (error) => {
         console.error("Error Code = " + error.code + " - " + error.message);
