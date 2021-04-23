@@ -12,20 +12,6 @@ Happy Hearth Day and thank you for the oportunity to work on shipserv challenge,
 
 I found it would be a good use case for a dynamic search / typehead. There is definitely room for improvement, specially for the error handling. However, I included a basic retry on error which is something usefull for bad connections. The dynamic search could be replicated in pure React/Redux with proper throttle/debounce and would bring other advantages as well.
 
-##### About the Styling
-
-For this project I focused on mobile first, so the media queries are not done for desktop. On my projects I usually go for the logic and JSX first, then I do the styles. I would happy to have your view on this.
-
-##### Todo :
-
-1. Breakdown the Card into more components then review the CSS
-2. Do the Media Queries for desktop view
-3. Create the skeleton Card
-4. Language filter needs to be reviewed + style the component
-5. The filtering solution works fine but it's a little ugly like that... would be better in a selector if the list was in a global state
-6. Write tests for the business logic
-7. Clean Up the folders
-
 ## Run the app
 
 ### `yarn start`
