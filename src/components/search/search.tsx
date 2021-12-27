@@ -10,10 +10,6 @@ export const Search = () => {
   const [search, setSearch] = useState<string>("");
   const fetching = useObservable($fetching);
 
-  useEffect(() => {
-    getAllCountries();
-  }, []);
-
   const onInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
     setSearch(val);

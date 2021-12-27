@@ -1,19 +1,23 @@
-# Getting Started
+# Dynamic country information
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-##### About the stream in Rx:
-
-I found it would be a good use case for a dynamic search / typehead. There is definitely room for improvement, specially for the error handling. However, I included a basic retry on error which is something usefull for bad connections. The dynamic search could be replicated in pure React/Redux with proper throttle/debounce and would bring other advantages as well.
+Retreive country data using [RXJS](https://rxjs.dev/) in React. Built using rest countries API [resctounies.com](https://restcountries.com/). Includes a Geolocation to display current location using [reverse-geocode-client]. Styles written in [styled-components](https://styled-components.com/). This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Run the app
 
-### `yarn start`
+```bash
+yarn start
+```
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-### `yarn build`
+```bash
+yarn build
+```
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
+
+## Previews
+![image of the application](src/assets/countriesImage.png)
+[video of the app flow visible in the assets](./src/assets/Countries.mov)

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../app/state";
 import { Country } from "../../app/types";
 import {
@@ -44,11 +44,17 @@ export const CountryCard: React.FC<{ country: Country }> = ({ country }) => {
   const { state } = useContext(GlobalContext);
   const isBig = useMediaQuery(device.mobileL);
 
-  const distance = () => {
-    return state.coord
-      ? getDistanceInKm(latlng[0], state.coord[0], latlng[1], state.coord[1])
-      : "";
-  };
+  const getDistance = useCallback(() => {
+    if (state?.coord && latlng) {
+      return getDistanceInKm(
+        latlng[0],
+        state.coord[0],
+        latlng[1],
+        state.coord[1]
+      );
+    }
+    return "";
+  }, [state.coord, latlng]);
 
   return (
     <Card>
@@ -57,7 +63,9 @@ export const CountryCard: React.FC<{ country: Country }> = ({ country }) => {
         <CountryTitle>
           <CountryMain>
             <CountryName>{name}</CountryName>
-            <Currency>{currencies[0].symbol}</Currency>
+            <Currency>
+              {currencies?.length > 0 ? currencies[0].symbol : ""}
+            </Currency>
           </CountryMain>
           <CapitalTime>{countryCapitalTime(alpha2Code)}</CapitalTime>
         </CountryTitle>
@@ -72,7 +80,7 @@ export const CountryCard: React.FC<{ country: Country }> = ({ country }) => {
           <Caption>
             <Languages>Languages:</Languages>
             {languages.slice(0, 3).map((l, i) => (
-              <LanguagesName key={l.iso639_1}>
+              <LanguagesName key={l.iso639_1 + i}>
                 {l.name}
                 {i !== languages.length - 1 && <span>, </span>}
               </LanguagesName>
@@ -89,7 +97,7 @@ export const CountryCard: React.FC<{ country: Country }> = ({ country }) => {
         <Info>
           <Plane />
           <SmallData>
-            {distance()}
+            {getDistance()}
             {isBig && <span> from {state.city}.</span>}
           </SmallData>
         </Info>

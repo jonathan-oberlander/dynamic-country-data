@@ -2,7 +2,7 @@ import axios from "axios";
 import { Country } from "./types";
 
 const httpClient = axios.create({
-  baseURL: "https://restcountries.eu/rest/v2",
+  baseURL: "https://restcountries.com/v2",
   timeout: 8000,
 });
 

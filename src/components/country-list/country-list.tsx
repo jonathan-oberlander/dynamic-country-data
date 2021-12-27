@@ -6,11 +6,13 @@ export const CountryList: React.FC<{ list: Country[] | undefined }> = ({
 }) => {
   // TODO: create the MockCard Component with skeleton text
 
-  if (list) {
+  console.log({ list });
+
+  if (list && list.length > 0) {
     return (
       <>
         {list?.map((country) => (
-          <CountryCard key={country.alpha2Code} country={country} />
+          <CountryCard key={country.name} country={country} />
         ))}
       </>
     );

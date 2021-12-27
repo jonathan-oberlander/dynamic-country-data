@@ -9,17 +9,21 @@ export const mockResponse: Country[] = [
     callingCodes: ["213"],
     capital: "Algiers",
     altSpellings: ["DZ", "Dzayer", "Algérie"],
-    region: "Africa",
     subregion: "Northern Africa",
-    population: 40400000,
+    region: "Africa",
+    population: 43851043,
     latlng: [28.0, 3.0],
     demonym: "Algerian",
     area: 2381741.0,
-    gini: 35.3,
+    gini: 27.6,
     timezones: ["UTC+01:00"],
     borders: ["TUN", "LBY", "NER", "ESH", "MRT", "MLI", "MAR"],
     nativeName: "الجزائر",
     numericCode: "012",
+    flags: {
+      svg: "https://flagcdn.com/dz.svg",
+      png: "https://flagcdn.com/w320/dz.png",
+    },
     currencies: [{ code: "DZD", name: "Algerian dinar", symbol: "د.ج" }],
     languages: [
       {
@@ -30,23 +34,23 @@ export const mockResponse: Country[] = [
       },
     ],
     translations: {
-      de: "Algerien",
-      es: "Argelia",
-      fr: "Algérie",
-      ja: "アルジェリア",
-      it: "Algeria",
       br: "Argélia",
       pt: "Argélia",
       nl: "Algerije",
       hr: "Alžir",
       fa: "الجزایر",
+      de: "Algerien",
+      es: "Argelia",
+      fr: "Algérie",
+      ja: "アルジェリア",
+      it: "Algeria",
+      hu: "Algéria",
     },
-    flag: "https://restcountries.eu/data/dza.svg",
+    flag: "https://flagcdn.com/dz.svg",
     regionalBlocs: [
       {
         acronym: "AU",
         name: "African Union",
-        otherAcronyms: [],
         otherNames: [
           "الاتحاد الأفريقي",
           "Union africaine",
@@ -58,7 +62,6 @@ export const mockResponse: Country[] = [
       {
         acronym: "AL",
         name: "Arab League",
-        otherAcronyms: [],
         otherNames: [
           "جامعة الدول العربية",
           "Jāmiʻat ad-Duwal al-ʻArabīyah",
@@ -67,5 +70,6 @@ export const mockResponse: Country[] = [
       },
     ],
     cioc: "ALG",
+    independent: true,
   },
 ];
