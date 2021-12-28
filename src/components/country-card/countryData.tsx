@@ -1,12 +1,12 @@
 import { FC } from "react";
 import { useGlobalContext } from "../../app/store/state";
-import { Country } from "../../app/types";
-import { useMediaQuery } from "../../app/useMediaQuery";
 import { getDistanceInKm, shortFormat } from "../../app/utils/utils";
 import { device } from "../styled/theme";
 import { Infos, Info, SmallData } from "./country-card.style";
 import { ReactComponent as User } from "../../assets/user.svg";
 import { ReactComponent as Plane } from "../../assets/plane.svg";
+import { Country } from "../../app/api/types";
+import { useMediaQuery } from "../../app/hooks/useMediaQuery";
 
 const useCountryData = ({ population, latlng }: Country) => {
   const isBig = useMediaQuery(device.mobileL);

@@ -1,7 +1,7 @@
 import { getCountryByName } from "../../app/api/api";
 import { CountryCard } from "../country-card/country-card";
 import { useGlobalContext } from "../../app/store/state";
-import { useList$ } from "../../app/stream";
+import { useList$ } from "../../app/store/stream";
 
 export const CountryList: React.FC = () => {
   const { dispatch } = useGlobalContext();

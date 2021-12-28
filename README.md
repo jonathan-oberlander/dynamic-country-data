@@ -5,14 +5,14 @@ Retreive country data using [RXJS](https://rxjs.dev/) in React. Built using rest
 ## Run the app
 
 ```bash
-yarn start
+npm start
 ```
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ```bash
-yarn build
+npm run build
 ```
 
 Builds the app for production to the `build` folder.\

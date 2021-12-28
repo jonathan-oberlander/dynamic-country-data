@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Country } from "../../app/types";
+import { Country } from "../../app/api/types";
 import { Caption } from "../styled/typography";
 import {
   CardBody,

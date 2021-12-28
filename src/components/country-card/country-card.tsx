@@ -1,9 +1,9 @@
 import { FC, useState } from "react";
-import { Country } from "../../app/types";
-import { Card } from "./country-card.style";
 import { CountryData } from "./countryData";
 import { CountryHead } from "./countryHead";
 import { CountryInfo } from "./countryInfo";
+import { Country } from "../../app/api/types";
+import { Card } from "./country-card.style";
 
 export const CountryCard: FC<{ country: Country }> = ({ country }) => {
   const [loaded, setLoaded] = useState<boolean>(false);
