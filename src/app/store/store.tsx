@@ -1,8 +1,13 @@
 import create from "zustand";
 import { Country } from "../api/types";
 import shallow from "zustand/shallow";
-import { devtools, redux } from "zustand/middleware";
+import { devtools } from "zustand/middleware";
 import { getDistanceInKm, shortFormat } from "../utils/utils";
+import {
+  getAllCountries,
+  getCountryByName,
+  getCurrentCityName,
+} from "../api/api";
 
 export type Store = {
   coord: number[];
@@ -11,62 +16,85 @@ export type Store = {
   allCountries: Country[] | undefined;
   selectedCountry: Country | undefined;
   openCountryModal: boolean;
+  setGeo(): void;
+  setSearch(search: string): void;
+  closeCountryModal(): void;
+  fetchCountry(countryName: string): void;
+  fetchAllCountries(): void;
 };
 
-export const initialState: Store = {
-  coord: [] as number[],
-  cityName: "",
-  search: "",
-  allCountries: undefined,
-  selectedCountry: undefined,
-  openCountryModal: false,
-};
+export const useStore = create<Store>(
+  devtools(
+    (set) => ({
+      coord: [] as number[],
+      cityName: "",
+      search: "",
+      allCountries: undefined,
+      selectedCountry: undefined,
+      openCountryModal: false,
 
-type Action =
-  | { type: "setGeo"; payload: { here: number[]; city: string } }
-  | { type: "setCountry"; payload: Country }
-  | { type: "closeCountryModal" }
-  | { type: "setSearch"; payload: string }
-  | { type: "setAllCountries"; payload: Country[] };
+      setGeo: () => {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            let coord: number[] = [
+              position.coords.latitude,
+              position.coords.longitude,
+            ];
 
-const reducer = (state: Store, action: Action): Store => {
-  switch (action.type) {
-    case "setGeo":
-      return {
-        ...state,
-        coord: action.payload.here,
-        cityName: action.payload.city,
-      };
-    case "setCountry":
-      return {
-        ...state,
-        selectedCountry: action.payload,
-        openCountryModal: true,
-      };
-    case "closeCountryModal":
-      return {
-        ...state,
-        openCountryModal: false,
-      };
-    case "setAllCountries":
-      return {
-        ...state,
-        allCountries: action.payload,
-      };
-    case "setSearch":
-      return {
-        ...state,
-        search: action.payload,
-      };
-    default:
-      return {
-        ...initialState,
-      };
-  }
-};
+            (async () => {
+              const cityName = await getCurrentCityName(coord);
+              set((state) => ({
+                ...state,
+                coord,
+                cityName,
+              }));
+            })();
+          },
+          (error) => {
+            console.error("Error Code = " + error.code + " - " + error.message);
+          }
+        );
+      },
 
-export const useStore = create(
-  devtools(redux(reducer, initialState), { name: "globalStore" })
+      setSearch: (search: string) =>
+        set((state) => ({
+          ...state,
+          search,
+        })),
+
+      closeCountryModal: () =>
+        set((state) => ({
+          ...state,
+          openCountryModal: false,
+        })),
+
+      fetchCountry: async (countryName: string) => {
+        try {
+          const fullcountry = await getCountryByName(countryName, {
+            full: true,
+          });
+
+          set((state) => ({
+            ...state,
+            selectedCountry: fullcountry[0],
+            openCountryModal: true,
+          }));
+        } catch (e) {}
+      },
+
+      fetchAllCountries: async () => {
+        try {
+          const allCountries = await getAllCountries();
+
+          set((state) => ({
+            ...state,
+            allCountries,
+          }));
+        } catch (e) {}
+      },
+    }),
+    { name: "globalStore" }
+  )
 );
 
 export const useSelectCountryByName = () =>
@@ -81,20 +109,20 @@ export const useSelectCountryByName = () =>
 
 export const useCountryModal = () =>
   useStore(
-    ({ openCountryModal, selectedCountry, dispatch }) => ({
+    ({ openCountryModal, selectedCountry, closeCountryModal }) => ({
       openCountryModal,
       selectedCountry,
-      dispatch,
+      closeCountryModal,
     }),
     shallow
   );
 
 export const useSearchBar = () =>
   useStore(
-    ({ dispatch, search, allCountries }) => ({
-      dispatch,
+    ({ search, allCountries, setSearch }) => ({
       search,
       allCountries,
+      setSearch,
     }),
     shallow
   );
@@ -111,3 +139,8 @@ export const useCurrentGeoLocation = (population: number, latlng: number[]) =>
     }),
     shallow
   );
+
+export const useFetchAllCountries = () =>
+  useStore((state) => state.fetchAllCountries);
+export const useFetchCountry = () => useStore((state) => state.fetchCountry);
+export const useGeoLocation = () => useStore((state) => state.setGeo);

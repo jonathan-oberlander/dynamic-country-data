@@ -7,9 +7,10 @@ export const CountryModal = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 0 auto;
+  width: 100vw;
   height: 100vh;
   padding: 30px;
+  background-color: ${({ theme }) => theme.color.neutral};
 
   .content {
     width: 50%;
@@ -18,11 +19,10 @@ export const CountryModal = styled.div`
     padding: ${({ theme }) => theme.spacing.l};
     background-color: ${({ theme }) => theme.color.white};
     border-radius: 4px;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
     overflow: hidden;
+    box-shadow: 0 4px 20px 4px rgba(0, 0, 0, 0.1);
     &:hover {
       cursor: pointer;
-      box-shadow: 0 4px 20px 4px rgba(0, 0, 0, 0.1);
     }
   }
 `;

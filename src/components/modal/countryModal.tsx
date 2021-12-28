@@ -15,15 +15,15 @@ export const Modal: FC = ({ children }) => {
 };
 
 export const CountryModalCard = () => {
-  const { openCountryModal, selectedCountry, dispatch } = useCountryModal();
-  const closeModal = () => dispatch({ type: "closeCountryModal" });
+  const { openCountryModal, selectedCountry, closeCountryModal } =
+    useCountryModal();
 
   return openCountryModal && selectedCountry ? (
     <Modal>
-      <CountryModal onClick={closeModal}>
-        <div className="content">
+      <CountryModal onClick={closeCountryModal}>
+        <pre className="content">
           {JSON.stringify(selectedCountry, null, 3)}
-        </div>
+        </pre>
       </CountryModal>
     </Modal>
   ) : null;

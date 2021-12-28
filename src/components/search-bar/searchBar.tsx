@@ -6,15 +6,15 @@ import { ReactComponent as Close } from "../../assets/close.svg";
 import { ReactComponent as Loader } from "../../assets/loader.svg";
 
 export const SearchBar = () => {
-  const { dispatch, search, allCountries } = useSearchBar();
+  const { setSearch, search, allCountries } = useSearchBar();
 
   const onInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value.toLowerCase();
-    dispatch({ type: "setSearch", payload: val });
+    const search = e.target.value.toLowerCase();
+    setSearch(search);
   };
 
   const onClick = () => {
-    dispatch({ type: "setSearch", payload: "" });
+    setSearch("");
   };
 
   return (
