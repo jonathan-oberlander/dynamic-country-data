@@ -4,15 +4,16 @@ export const CountryModal = styled.div`
   position: absolute;
   top: 0;
   left: 0;
+  /* width: 100vw;
+  height: 100vh; */
+
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100vw;
-  height: 100vh;
-  padding: 30px;
-  background-color: ${({ theme }) => theme.color.neutral};
+  /* padding: 30px;
+  background-color: ${({ theme }) => theme.color.neutral}; */
 
-  .content {
+  /* .content {
     width: 50%;
     z-index: 1000;
     margin-bottom: ${({ theme }) => theme.spacing.s};
@@ -24,5 +25,5 @@ export const CountryModal = styled.div`
     &:hover {
       cursor: pointer;
     }
-  }
+  } */
 `;

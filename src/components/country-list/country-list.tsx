@@ -1,6 +1,6 @@
 import { ListContainer } from "./country-list.style";
 import { CountryCard } from "../country-card/countryCard";
-import { useSelectCountryByName } from "../../app/store/store";
+import { useSelectCountryByName } from "../../app/store/selectors";
 
 export const CountryList: React.FC = () => {
   const countryList = useSelectCountryByName();

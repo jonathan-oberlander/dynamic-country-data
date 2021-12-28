@@ -3,7 +3,7 @@ import { Infos, Info, SmallData } from "./countryCard.style";
 import { ReactComponent as User } from "../../assets/user.svg";
 import { ReactComponent as Plane } from "../../assets/plane.svg";
 import { Country } from "../../app/api/types";
-import { useCurrentGeoLocation } from "../../app/store/store";
+import { useCurrentGeoLocation } from "../../app/store/selectors";
 
 export const CountryData: FC<{ country: Country }> = ({ country }) => {
   const {

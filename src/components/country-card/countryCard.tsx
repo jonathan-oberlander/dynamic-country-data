@@ -4,7 +4,7 @@ import { CountryHead } from "./countryHead";
 import { CountryInfo } from "./countryInfo";
 import { Country } from "../../app/api/types";
 import { Card } from "./countryCard.style";
-import { useFetchCountry } from "../../app/store/store";
+import { useFetchCountry } from "../../app/store/selectors";
 
 export const CountryCard: FC<{ country: Country }> = ({ country }) => {
   const [loaded, setLoaded] = useState<boolean>(false);

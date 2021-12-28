@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Input, Field } from "./searchBar.style";
-import { useSearchBar } from "../../app/store/store";
+import { useSearchBar } from "../../app/store/selectors";
 import { ReactComponent as Magnifier } from "../../assets/search.svg";
 import { ReactComponent as Close } from "../../assets/close.svg";
 import { ReactComponent as Loader } from "../../assets/loader.svg";

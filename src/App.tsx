@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useFetchAllCountries, useGeoLocation } from "./app/store/store";
+import { useFetchAllCountries, useGeoLocation } from "./app/store/selectors";
 import { Body } from "./components/body/body";
 import { CountryList } from "./components/country-list/country-list";
 import { CountryModalCard } from "./components/modal/countryModal";
