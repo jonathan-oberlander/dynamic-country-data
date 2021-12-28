@@ -5,19 +5,19 @@ import { devtools, redux } from "zustand/middleware";
 
 export type Store = {
   coord: number[];
-  city: string;
+  cityName: string;
   search: string;
   allCountries: Country[] | undefined;
-  countryInModal: Country | undefined;
+  selectedCountry: Country | undefined;
   openCountryModal: boolean;
 };
 
 export const initialState: Store = {
   coord: [] as number[],
-  city: "",
+  cityName: "",
   search: "",
   allCountries: undefined,
-  countryInModal: undefined,
+  selectedCountry: undefined,
   openCountryModal: false,
 };
 
@@ -34,12 +34,12 @@ const reducer = (state: Store, action: Action): Store => {
       return {
         ...state,
         coord: action.payload.here,
-        city: action.payload.city,
+        cityName: action.payload.city,
       };
     case "setCountry":
       return {
         ...state,
-        countryInModal: action.payload,
+        selectedCountry: action.payload,
         openCountryModal: true,
       };
     case "closeCountryModal":
@@ -80,9 +80,9 @@ export const useSelectCountryByName = () =>
 
 export const useCountryModal = () =>
   useStore(
-    ({ openCountryModal, countryInModal, dispatch }) => ({
+    ({ openCountryModal, selectedCountry, dispatch }) => ({
       openCountryModal,
-      countryInModal,
+      selectedCountry,
       dispatch,
     }),
     shallow

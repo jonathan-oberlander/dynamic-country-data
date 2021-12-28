@@ -10,7 +10,7 @@ import { useStore } from "../../app/store/store";
 
 const useCountryData = ({ population, latlng }: Country) => {
   const isBig = useMediaQuery(device.mobileL);
-  const { coord, city } = useStore();
+  const { coord, cityName } = useStore();
 
   const getDistance = () =>
     coord && latlng
@@ -21,7 +21,10 @@ const useCountryData = ({ population, latlng }: Country) => {
 
   return {
     distance:
-      distance !== "NaN km" && isBig && city && `${distance} from ${city}.`,
+      distance !== "NaN km" &&
+      isBig &&
+      cityName &&
+      `${distance} from ${cityName}.`,
     population: shortFormat(population),
   };
 };
