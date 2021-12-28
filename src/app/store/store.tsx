@@ -2,6 +2,7 @@ import create from "zustand";
 import { Country } from "../api/types";
 import shallow from "zustand/shallow";
 import { devtools, redux } from "zustand/middleware";
+import { getDistanceInKm, shortFormat } from "../utils/utils";
 
 export type Store = {
   coord: number[];
@@ -94,6 +95,19 @@ export const useSearchBar = () =>
       dispatch,
       search,
       allCountries,
+    }),
+    shallow
+  );
+
+export const useCurrentGeoLocation = (population: number, latlng: number[]) =>
+  useStore(
+    ({ coord, cityName }) => ({
+      cityName,
+      getDistance: () =>
+        coord && latlng
+          ? getDistanceInKm(latlng[0], coord[0], latlng[1], coord[1])
+          : "",
+      population: shortFormat(population),
     }),
     shallow
   );
