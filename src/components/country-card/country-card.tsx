@@ -1,125 +1,18 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useGlobalContext } from "../../app/state";
+import { FC, useState } from "react";
 import { Country } from "../../app/types";
-import {
-  countryCapitalTime,
-  getDistanceInKm,
-  shortFormat,
-} from "../../app/utils";
-import { Caption } from "../styled/typography";
-import { ReactComponent as User } from "../../assets/user.svg";
-import { ReactComponent as Plane } from "../../assets/plane.svg";
-import {
-  Card,
-  CardHead,
-  Flag,
-  CountryName,
-  Currency,
-  CardBody,
-  Infos,
-  Info,
-  SmallData,
-  Capital,
-  CapitalName,
-  CapitalTime,
-  CountryMain,
-  CountryTitle,
-  Languages,
-  LanguagesName,
-} from "./country-card.style";
-import { device } from "../styled/theme";
+import { Card } from "./country-card.style";
+import { CountryData } from "./countryData";
+import { CountryHead } from "./countryHead";
+import { CountryInfo } from "./countryInfo";
 
-export const CountryCard: React.FC<{ country: Country }> = ({ country }) => {
-  const {
-    alpha2Code,
-    capital,
-    flag,
-    name,
-    currencies,
-    languages,
-    population,
-    latlng,
-  } = country;
-
-  const { state } = useGlobalContext();
-  const isBig = useMediaQuery(device.mobileL);
-
-  const getDistance = useCallback(() => {
-    if (state?.coord && latlng) {
-      return getDistanceInKm(
-        latlng[0],
-        state.coord[0],
-        latlng[1],
-        state.coord[1]
-      );
-    }
-    return "";
-  }, [state.coord, latlng]);
+export const CountryCard: FC<{ country: Country }> = ({ country }) => {
+  const [loaded, setLoaded] = useState<boolean>(false);
 
   return (
-    <Card>
-      <CardHead>
-        <Flag src={flag} alt={`${name}'s national flag.`} />
-        <CountryTitle>
-          <CountryMain>
-            <CountryName>{name}</CountryName>
-            <Currency>
-              {currencies?.length > 0 ? currencies[0].symbol : ""}
-            </Currency>
-          </CountryMain>
-          <CapitalTime>{countryCapitalTime(alpha2Code)}</CapitalTime>
-        </CountryTitle>
-      </CardHead>
-
-      <CardBody>
-        <div>
-          <Capital>Capital:</Capital>
-          <CapitalName>{capital}</CapitalName>
-        </div>
-        <div className="languages">
-          <Caption>
-            <Languages>Languages:</Languages>
-            {languages.slice(0, 3).map((l, i) => (
-              <LanguagesName key={l.iso639_1 + i}>
-                {l.name}
-                {i !== languages.length - 1 && <span>, </span>}
-              </LanguagesName>
-            ))}
-          </Caption>
-        </div>
-      </CardBody>
-
-      <Infos>
-        <Info>
-          <User />
-          <SmallData>{shortFormat(population)}</SmallData>
-        </Info>
-        <Info>
-          <Plane />
-          <SmallData>
-            {getDistance()}
-            {isBig && <span> from {state.city}.</span>}
-          </SmallData>
-        </Info>
-      </Infos>
+    <Card loaded={loaded}>
+      <CountryHead country={country} setLoaded={setLoaded} />
+      <CountryInfo country={country} />
+      <CountryData country={country} />
     </Card>
   );
 };
-
-export function useMediaQuery(query: string) {
-  const [matches, setMatches] = useState(false);
-
-  useEffect(() => {
-    const media = window.matchMedia(query);
-    if (media.matches !== matches) {
-      setMatches(media.matches);
-    }
-    const listener = () => {
-      setMatches(media.matches);
-    };
-    media.addListener(listener);
-    return () => media.removeListener(listener);
-  }, [matches, query]);
-
-  return matches;
-}

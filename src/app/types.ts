@@ -65,3 +65,46 @@ export interface Country {
   independent: boolean;
   gini?: number;
 }
+
+export interface Administrative {
+  order: number;
+  adminLevel: number;
+  name: string;
+  description: string;
+  isoName: string;
+  isoCode: string;
+  wikidataId: string;
+  geonameId: number;
+}
+
+export interface Informative {
+  order: number;
+  name: string;
+  description: string;
+  isoCode: string;
+  wikidataId: string;
+  geonameId: number;
+}
+
+export interface LocalityInfo {
+  administrative: Administrative[];
+  informative: Informative[];
+}
+
+export interface Geocode {
+  latitude: number;
+  longitude: number;
+  lookupSource: string;
+  plusCode: string;
+  localityLanguageRequested: string;
+  continent: string;
+  continentCode: string;
+  countryName: string;
+  countryCode: string;
+  principalSubdivision: string;
+  principalSubdivisionCode: string;
+  city: string;
+  locality: string;
+  postcode: string;
+  localityInfo: LocalityInfo;
+}

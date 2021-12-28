@@ -1,6 +1,6 @@
 import { getAllCountries, getCountryByName } from "./api";
 import { Country } from "./types";
-import { BehaviorSubject, Observable, timer } from "rxjs";
+import { BehaviorSubject, timer } from "rxjs";
 import {
   debounceTime,
   delayWhen,
@@ -11,25 +11,19 @@ import {
 } from "rxjs/operators";
 import { useEffect, useState } from "react";
 
-// ---------------------------------------------------------------------
-// search data stream
-// retry on error
-// typehead to display the coutries dynamically
 export const $list = new BehaviorSubject<Country[]>([]);
 export const $fetching = new BehaviorSubject<boolean>(false);
 export const $search = new BehaviorSubject<string>("");
+
 $search
   .pipe(
     distinctUntilChanged(),
     debounceTime(330),
     tap(() => $fetching.next(true)),
     switchMap((s: string) =>
-      s.length > 0 ? getCountryByName(s) : getAllCountries()
+      s.length > 0 ? getCountryByName(s, { full: false }) : getAllCountries()
     ),
-    retryWhen(
-      // TODO: implement error handling
-      (errors) => errors.pipe(delayWhen(() => timer(2000)))
-    )
+    retryWhen((errors) => errors.pipe(delayWhen(() => timer(2000))))
   )
   .subscribe({
     next: (list: Country[]) => {
@@ -38,15 +32,21 @@ $search
     },
   });
 
-// ---------------------------------------------------------------------
-// hook to provide the obeservable stream to a react component
-export const useObservable = <T>(observable: Observable<T>) => {
+export const useBehaviorSubject = <T>($bs: BehaviorSubject<T>) => {
   const [state, setState] = useState<T>();
 
   useEffect(() => {
-    const sub = observable.subscribe(setState);
+    const sub = $bs.subscribe(setState);
     return () => sub.unsubscribe();
-  }, [observable]);
+  }, [$bs]);
 
-  return state;
+  const handleNext = (value: T) => {
+    $bs.next(value);
+  };
+
+  return { value: state, handleNext };
 };
+
+export const useSearch$ = () => useBehaviorSubject($search);
+export const useFetching$ = () => useBehaviorSubject($fetching);
+export const useList$ = () => useBehaviorSubject($list);

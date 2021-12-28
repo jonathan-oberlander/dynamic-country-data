@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { getCurrentCityName } from "./app/api";
 import { useGlobalContext } from "./app/state";
 import { Body } from "./components/body/body";
-import { LanguageFilter } from "./components/language-filter/language-filter";
+import { CountryList } from "./components/country-list/country-list";
 import { Search } from "./components/search/search";
 
 function App() {
@@ -32,7 +32,7 @@ function App() {
   return (
     <Body>
       <Search />
-      <LanguageFilter />
+      <CountryList />
     </Body>
   );
 }

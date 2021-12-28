@@ -1,23 +1,21 @@
-import { useState } from "react";
-import { $fetching, $search, useObservable } from "../../app/stream";
+import { useFetching$, useSearch$ } from "../../app/stream";
 import { ReactComponent as Magnifier } from "../../assets/search.svg";
 import { ReactComponent as Close } from "../../assets/close.svg";
-import { Small } from "../styled/typography";
 import { Input, Field } from "./search.style";
+import { ReactComponent as Loader } from "../../assets/loader.svg";
+import styled from "styled-components";
 
 export const Search = () => {
-  const [search, setSearch] = useState<string>("");
-  const fetching = useObservable($fetching);
+  const { value, handleNext } = useSearch$();
+  const { value: fetching } = useFetching$();
 
   const onInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
-    setSearch(val);
-    $search.next(val);
+    handleNext(val);
   };
 
   const onClick = () => {
-    setSearch("");
-    $search.next("");
+    handleNext("");
   };
 
   return (
@@ -26,11 +24,20 @@ export const Search = () => {
       <Input
         placeholder="Search by country..."
         type="text"
-        value={search.toUpperCase()}
+        value={value?.toUpperCase()}
         onInput={onInput}
       />
-      {fetching && <Small>loading...</Small>}
-      <Close viewBox="0 0 17 17" onClick={onClick} />
+      {fetching ? (
+        <Loader viewBox="0 0 42 42" />
+      ) : (
+        <CloseButton>
+          <Close viewBox="0 0 17 17" onClick={onClick} />
+        </CloseButton>
+      )}
     </Field>
   );
 };
+
+const CloseButton = styled.div`
+  cursor: pointer;
+`;

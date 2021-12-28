@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { device } from "../styled/theme";
 import { Caption, Small, Title } from "../styled/typography";
 
-export const Card = styled.div`
+export const Card = styled.div<{ loaded: boolean }>`
   height: 148px;
   margin-bottom: ${({ theme }) => theme.spacing.s};
   padding: ${({ theme }) => theme.spacing.s};
@@ -10,6 +10,8 @@ export const Card = styled.div`
   border-radius: 4px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  opacity: ${({ loaded }) => (loaded ? 1 : 0)};
+  transition: opacity ease-in 100ms, box-shadow ease-in 100ms;
 
   @media ${device.mobileL} {
     width: 640px;
