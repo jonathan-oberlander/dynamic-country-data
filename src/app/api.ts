@@ -12,7 +12,20 @@ export const getCountryByName = async (country: string) => {
 };
 
 export const getAllCountries = async () => {
-  const response = await httpClient.get("/all");
+  const filter = [
+    "alpha2Code",
+    "capital",
+    "flag",
+    "name",
+    "currencies",
+    "languages",
+    "population",
+    "latlng",
+  ];
+
+  const fields = filter.map((f) => f);
+
+  const response = await httpClient.get("/all/?fields=" + fields);
   return response.data as Country[];
 };
 
