@@ -1,6 +1,6 @@
 # Dynamic country information
 
-Retreive country data using [RXJS](https://rxjs.dev/) in React. Built using rest countries API [resctounies.com](https://restcountries.com/). Includes a Geolocation to display current location using [reverse-geocode-client]. Styles written in [styled-components](https://styled-components.com/). This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Retreive country data using rest countries API [resctounies.com](https://restcountries.com/). Includes a Geolocation to display current location using [reverse-geocode-client]. Styles written in [styled-components](https://styled-components.com/). This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Run the app
 

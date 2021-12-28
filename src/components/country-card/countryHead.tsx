@@ -24,9 +24,7 @@ export const CountryHead: FC<{
       <CountryTitle>
         <CountryMain>
           <CountryName>{name}</CountryName>
-          <Currency>
-            {currencies?.length > 0 ? currencies[0].symbol : ""}
-          </Currency>
+          <Currency>{currencies?.[0]?.symbol ?? ""}</Currency>
         </CountryMain>
         <CapitalTime>{countryCapitalTime(alpha2Code)}</CapitalTime>
       </CountryTitle>

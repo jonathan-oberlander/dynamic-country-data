@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { getCurrentCityName } from "../api/api";
-import { useGlobalContext } from "../store/state";
+import { useStore } from "../store/store";
 
 export const useGeoLocation = () => {
-  const { dispatch } = useGlobalContext();
+  const { dispatch } = useStore();
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(

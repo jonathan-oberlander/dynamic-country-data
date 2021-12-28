@@ -1,7 +1,5 @@
 import moment from "moment-timezone";
-// welcometo the vault :)
 
-// a cool function i found online
 export function getDistanceInKm(
   lat1: number,
   lon1: number,
@@ -26,7 +24,6 @@ function deg2rad(deg: number) {
   return deg * (Math.PI / 180);
 }
 
-// format the distance in km
 export function distanceFormat(val: number) {
   return new Intl.NumberFormat("en-IN", {
     style: "unit",

@@ -3,19 +3,18 @@ import { Input, Field } from "./searchBar.style";
 import { ReactComponent as Magnifier } from "../../assets/search.svg";
 import { ReactComponent as Close } from "../../assets/close.svg";
 import { ReactComponent as Loader } from "../../assets/loader.svg";
-import { useSearch$, useFetching$ } from "../../app/store/stream";
+import { useStore } from "../../app/store/store";
 
 export const SearchBar = () => {
-  const { value, handleNext } = useSearch$();
-  const { value: fetching } = useFetching$();
+  const { dispatch, search, allCountries } = useStore();
 
   const onInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value;
-    handleNext(val);
+    const val = e.target.value.toLowerCase();
+    dispatch({ type: "setSearch", payload: val });
   };
 
   const onClick = () => {
-    handleNext("");
+    dispatch({ type: "setSearch", payload: "" });
   };
 
   return (
@@ -24,10 +23,11 @@ export const SearchBar = () => {
       <Input
         placeholder="Search by country..."
         type="text"
-        value={value?.toUpperCase()}
+        value={search?.toUpperCase()}
         onInput={onInput}
       />
-      {fetching ? (
+
+      {!allCountries ? (
         <Loader viewBox="0 0 42 42" />
       ) : (
         <CloseButton>

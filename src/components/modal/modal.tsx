@@ -1,6 +1,6 @@
 import { FC, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
-import { useGlobalContext } from "../../app/store/state";
+import { useStore } from "../../app/store/store";
 import { modalRoot } from "../../index";
 import { CountryModal } from "./countryModal.style";
 
@@ -15,16 +15,14 @@ export const Modal: FC = ({ children }) => {
 };
 
 export const CountryModalCard = () => {
-  const { state, dispatch } = useGlobalContext();
+  const { openCountryModal, countryInModal, dispatch } = useStore();
 
   const closeModal = () => dispatch({ type: "closeCountryModal" });
 
-  return state.openCountryModal && state.countryInModal ? (
+  return openCountryModal && countryInModal ? (
     <Modal>
       <CountryModal onClick={closeModal}>
-        <div className="content">
-          {JSON.stringify(state.countryInModal, null, 3)}
-        </div>
+        <div className="content">{JSON.stringify(countryInModal, null, 3)}</div>
       </CountryModal>
     </Modal>
   ) : null;
