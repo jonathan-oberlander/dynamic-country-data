@@ -1,22 +1,31 @@
+import { getCountryByName } from "../../app/api";
 import { Country } from "../../app/types";
 import { CountryCard } from "../country-card/country-card";
+import { CountryModalCard } from "../modal/modal";
+import { useGlobalContext } from "../../app/state";
 
 export const CountryList: React.FC<{ list: Country[] | undefined }> = ({
   list,
 }) => {
-  // TODO: create the MockCard Component with skeleton text
+  const { dispatch } = useGlobalContext();
 
-  console.log({ list });
+  const onClick = async (name: string) => {
+    const country = await getCountryByName(name);
+    dispatch({ type: "setCountry", payload: country[0] });
+  };
 
   if (list && list.length > 0) {
     return (
       <>
         {list?.map((country) => (
-          <CountryCard key={country.name} country={country} />
+          <div key={country.name} onClick={() => onClick(country.name)}>
+            <CountryCard country={country} />
+          </div>
         ))}
+        <CountryModalCard />
       </>
     );
   }
 
-  return <div />;
+  return null;
 };

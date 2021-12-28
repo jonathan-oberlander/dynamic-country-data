@@ -1,5 +1,5 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
-import { GlobalContext } from "../../app/state";
+import React, { useCallback, useEffect, useState } from "react";
+import { useGlobalContext } from "../../app/state";
 import { Country } from "../../app/types";
 import {
   countryCapitalTime,
@@ -41,7 +41,7 @@ export const CountryCard: React.FC<{ country: Country }> = ({ country }) => {
     latlng,
   } = country;
 
-  const { state } = useContext(GlobalContext);
+  const { state } = useGlobalContext();
   const isBig = useMediaQuery(device.mobileL);
 
   const getDistance = useCallback(() => {

@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { getAllCountries } from "../../app/api";
+import { useState } from "react";
 import { $fetching, $search, useObservable } from "../../app/stream";
 import { ReactComponent as Magnifier } from "../../assets/search.svg";
 import { ReactComponent as Close } from "../../assets/close.svg";

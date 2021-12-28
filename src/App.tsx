@@ -1,12 +1,12 @@
-import { useEffect, useReducer } from "react";
+import { useEffect } from "react";
 import { getCurrentCityName } from "./app/api";
-import { appReducer, GlobalContext, initialState } from "./app/state";
+import { useGlobalContext } from "./app/state";
 import { Body } from "./components/body/body";
 import { LanguageFilter } from "./components/language-filter/language-filter";
 import { Search } from "./components/search/search";
 
 function App() {
-  const [state, dispatch] = useReducer(appReducer, initialState);
+  const { dispatch } = useGlobalContext();
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -27,15 +27,13 @@ function App() {
         console.error("Error Code = " + error.code + " - " + error.message);
       }
     );
-  }, []);
+  }, [dispatch]);
 
   return (
-    <GlobalContext.Provider value={{ dispatch, state }}>
-      <Body>
-        <Search />
-        <LanguageFilter />
-      </Body>
-    </GlobalContext.Provider>
+    <Body>
+      <Search />
+      <LanguageFilter />
+    </Body>
   );
 }
 
