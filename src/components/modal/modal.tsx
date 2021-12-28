@@ -1,6 +1,6 @@
 import { FC, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
-import { useGlobalContext } from "../../app/state";
+import { useGlobalContext } from "../../app/store/state";
 import { modalRoot } from "../../index";
 import { CountryModal } from "./countryModal.style";
 

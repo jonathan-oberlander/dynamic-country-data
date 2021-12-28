@@ -1,5 +1,5 @@
 import { createContext, FC, useContext, useMemo, useReducer } from "react";
-import { Country } from "./types";
+import { Country } from "../api/types";
 
 export type State = {
   coord: number[];

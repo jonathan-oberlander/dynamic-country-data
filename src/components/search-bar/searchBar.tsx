@@ -1,11 +1,11 @@
-import { useFetching$, useSearch$ } from "../../app/stream";
+import styled from "styled-components";
+import { Input, Field } from "./searchBar.style";
 import { ReactComponent as Magnifier } from "../../assets/search.svg";
 import { ReactComponent as Close } from "../../assets/close.svg";
-import { Input, Field } from "./search.style";
 import { ReactComponent as Loader } from "../../assets/loader.svg";
-import styled from "styled-components";
+import { useSearch$, useFetching$ } from "../../app/store/stream";
 
-export const Search = () => {
+export const SearchBar = () => {
   const { value, handleNext } = useSearch$();
   const { value: fetching } = useFetching$();
 

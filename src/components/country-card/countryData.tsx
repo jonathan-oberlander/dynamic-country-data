@@ -1,8 +1,8 @@
 import { FC } from "react";
-import { useGlobalContext } from "../../app/state";
+import { useGlobalContext } from "../../app/store/state";
 import { Country } from "../../app/types";
 import { useMediaQuery } from "../../app/useMediaQuery";
-import { getDistanceInKm, shortFormat } from "../../app/utils";
+import { getDistanceInKm, shortFormat } from "../../app/utils/utils";
 import { device } from "../styled/theme";
 import { Infos, Info, SmallData } from "./country-card.style";
 import { ReactComponent as User } from "../../assets/user.svg";

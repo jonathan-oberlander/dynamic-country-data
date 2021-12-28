@@ -1,5 +1,5 @@
-import { getAllCountries, getCountryByName } from "./api";
-import { Country } from "./types";
+import { getAllCountries, getCountryByName } from "../api/api";
+import { Country } from "../api/types";
 import { BehaviorSubject, timer } from "rxjs";
 import {
   debounceTime,

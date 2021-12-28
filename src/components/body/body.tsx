@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
 export const Body: React.FC = ({ children }) => {
-  // const isBig = useMediaQuery(device.mobileL);
-
   return <Wrapper>{children}</Wrapper>;
 };
 
