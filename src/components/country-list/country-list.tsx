@@ -1,4 +1,4 @@
-import { CountryCard } from "../country-card/country-card";
+import { CountryCard } from "../country-card/countryCard";
 import { useSelectCountryByName } from "../../app/store/store";
 
 export const CountryList: React.FC = () => {

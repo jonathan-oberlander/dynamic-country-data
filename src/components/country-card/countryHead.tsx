@@ -9,7 +9,7 @@ import {
   CountryName,
   Currency,
   CapitalTime,
-} from "./country-card.style";
+} from "./countryCard.style";
 
 export const CountryHead: FC<{
   country: Country;

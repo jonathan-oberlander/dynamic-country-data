@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import { Input, Field } from "./searchBar.style";
+import { useSearchBar } from "../../app/store/store";
 import { ReactComponent as Magnifier } from "../../assets/search.svg";
 import { ReactComponent as Close } from "../../assets/close.svg";
 import { ReactComponent as Loader } from "../../assets/loader.svg";
-import { useStore } from "../../app/store/store";
 
 export const SearchBar = () => {
-  const { dispatch, search, allCountries } = useStore();
+  const { dispatch, search, allCountries } = useSearchBar();
 
   const onInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value.toLowerCase();

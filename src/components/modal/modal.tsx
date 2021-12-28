@@ -1,6 +1,6 @@
 import { FC, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
-import { useStore } from "../../app/store/store";
+import { useCountryModal } from "../../app/store/store";
 import { modalRoot } from "../../index";
 import { CountryModal } from "./countryModal.style";
 
@@ -15,8 +15,7 @@ export const Modal: FC = ({ children }) => {
 };
 
 export const CountryModalCard = () => {
-  const { openCountryModal, countryInModal, dispatch } = useStore();
-
+  const { openCountryModal, countryInModal, dispatch } = useCountryModal();
   const closeModal = () => dispatch({ type: "closeCountryModal" });
 
   return openCountryModal && countryInModal ? (

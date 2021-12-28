@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { getDistanceInKm, shortFormat } from "../../app/utils/utils";
 import { device } from "../styled/theme";
-import { Infos, Info, SmallData } from "./country-card.style";
+import { Infos, Info, SmallData } from "./countryCard.style";
 import { ReactComponent as User } from "../../assets/user.svg";
 import { ReactComponent as Plane } from "../../assets/plane.svg";
 import { Country } from "../../app/api/types";

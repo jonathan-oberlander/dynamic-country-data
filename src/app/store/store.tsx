@@ -1,5 +1,6 @@
 import create from "zustand";
 import { Country } from "../api/types";
+import shallow from "zustand/shallow";
 import { devtools, redux } from "zustand/middleware";
 
 export type Store = {
@@ -76,3 +77,23 @@ export const useSelectCountryByName = () =>
         : allCountries;
     return countries;
   });
+
+export const useCountryModal = () =>
+  useStore(
+    ({ openCountryModal, countryInModal, dispatch }) => ({
+      openCountryModal,
+      countryInModal,
+      dispatch,
+    }),
+    shallow
+  );
+
+export const useSearchBar = () =>
+  useStore(
+    ({ dispatch, search, allCountries }) => ({
+      dispatch,
+      search,
+      allCountries,
+    }),
+    shallow
+  );

@@ -7,7 +7,7 @@ import {
   CapitalName,
   Languages,
   LanguagesName,
-} from "./country-card.style";
+} from "./countryCard.style";
 
 export const CountryInfo: FC<{ country: Country }> = ({ country }) => {
   const { capital, languages } = country;
