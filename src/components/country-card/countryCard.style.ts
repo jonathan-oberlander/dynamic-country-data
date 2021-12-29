@@ -34,13 +34,13 @@ export const Flag = styled.img`
   width: 56px;
   height: 40px;
   border-radius: 2.4px;
-  background-color: ${({ theme }) => theme.color.shade};
-  object-fit: cover;
+  background-color: ${({ theme }) => theme.color.white};
+  transform: scale(0.7);
 
   @media ${device.mobileL} {
     width: 140px;
     height: 100px;
-    border-radius: 6px;
+    transform: scale(0.7);
   }
 `;
 
@@ -68,6 +68,7 @@ export const CountryName = styled(Title)`
   font-size: 20px;
   font-weight: 600;
   height: 32px;
+  overflow-x: hidden;
   color: ${({ theme }) => theme.color.brand};
 `;
 

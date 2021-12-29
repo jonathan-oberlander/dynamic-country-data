@@ -6,6 +6,13 @@ import {
 } from "../api/api";
 import { Store } from "./store";
 
+export const setLanguageFilter =
+  (set: NamedSet<Store>) => (languageFilter: string | "none") =>
+    set((state) => ({
+      ...state,
+      languageFilter,
+    }));
+
 export const setGeo = (set: NamedSet<Store>) => () => {
   navigator.geolocation.getCurrentPosition(
     (position) => {
