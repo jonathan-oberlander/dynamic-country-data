@@ -4,8 +4,18 @@ import { LanguageFilter } from "./components/language-filter/languageFilter";
 import { CountryModalCard } from "./components/modal/countryModal";
 import { SearchBar } from "./components/search-bar/searchBar";
 import { useOpenCountryModal } from "./app/rtk/selectors";
+import { Route, Switch } from "wouter";
+import { Title } from "./components/styled/typography";
 
-function App() {
+function Stat() {
+  return (
+    <Body>
+      <Title>World countries statistics</Title>
+    </Body>
+  );
+}
+
+function Home() {
   const openCountryModal = useOpenCountryModal();
 
   return (
@@ -15,6 +25,15 @@ function App() {
       <CountryList />
       {openCountryModal && <CountryModalCard />}
     </Body>
+  );
+}
+
+function App() {
+  return (
+    <Switch>
+      <Route path="/home" component={Home} />
+      <Route path="/stat" component={Stat} />
+    </Switch>
   );
 }
 
