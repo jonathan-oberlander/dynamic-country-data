@@ -11,7 +11,7 @@ export const Field = styled.div`
   padding-left: ${({ theme }) => theme.spacing.m};
   padding-right: ${({ theme }) => theme.spacing.m};
   background-color: ${({ theme }) => theme.color.neutral};
-  margin-bottom: ${({ theme: { spacing } }) => spacing.l};
+  margin-bottom: ${({ theme: { spacing } }) => spacing.m};
 
   @media ${device.mobileL} {
     width: 640px;

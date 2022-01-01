@@ -1,15 +1,15 @@
 import { ListContainer } from "./country-list.style";
 import { CountryCard } from "../country-card/countryCard";
-import { useSelectCountry } from "../../app/store/selectors";
+import { useCountriesList } from "../../app/rtk/hooks";
 
 export const CountryList: React.FC = () => {
-  const countryList = useSelectCountry();
+  const { countries, geocode } = useCountriesList();
 
-  return countryList ? (
+  return countries && geocode ? (
     <ListContainer>
-      {countryList.map((country) => (
+      {countries.map((country) => (
         <div key={country.name}>
-          <CountryCard country={country} />
+          <CountryCard country={country} geocode={geocode} />
         </div>
       ))}
     </ListContainer>

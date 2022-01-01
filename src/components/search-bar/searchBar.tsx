@@ -1,20 +1,22 @@
 import styled from "styled-components";
 import { Input, Field } from "./searchBar.style";
-import { useSearchBar } from "../../app/store/selectors";
 import { ReactComponent as Magnifier } from "../../assets/search.svg";
 import { ReactComponent as Close } from "../../assets/close.svg";
-import { ReactComponent as Loader } from "../../assets/loader.svg";
+import { useAppDispatch } from "../../app/rtk/hooks";
+import { setSearch } from "../../app/rtk/slice/coreSlice";
+import { useSearch } from "../../app/rtk/selectors";
 
 export const SearchBar = () => {
-  const { setSearch, search, allCountries } = useSearchBar();
+  const search = useSearch();
+  const dispatch = useAppDispatch();
 
   const onInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const search = e.target.value.toLowerCase();
-    setSearch(search);
+    dispatch(setSearch(search));
   };
 
   const onClick = () => {
-    setSearch("");
+    dispatch(setSearch(""));
   };
 
   return (
@@ -27,13 +29,17 @@ export const SearchBar = () => {
         onInput={onInput}
       />
 
-      {!allCountries ? (
+      <CloseButton>
+        <Close viewBox="0 0 17 17" onClick={onClick} />
+      </CloseButton>
+
+      {/* {!allCountries ? (
         <Loader viewBox="0 0 42 42" />
       ) : (
         <CloseButton>
           <Close viewBox="0 0 17 17" onClick={onClick} />
         </CloseButton>
-      )}
+      )} */}
     </Field>
   );
 };

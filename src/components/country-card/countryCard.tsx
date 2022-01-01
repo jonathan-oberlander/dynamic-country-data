@@ -2,19 +2,31 @@ import { FC, useState } from "react";
 import { CountryData } from "./countryData";
 import { CountryHead } from "./countryHead";
 import { CountryInfo } from "./countryInfo";
-import { Country } from "../../app/api/types";
+import { Country, Geocode } from "../../app/api/types";
 import { Card } from "./countryCard.style";
-import { useFetchCountry } from "../../app/store/selectors";
+import { shortFormat } from "../../app/utils/utils";
+import { useDispatch } from "react-redux";
+import { setSelectedCountry } from "../../app/rtk/slice/coreSlice";
+import { useGetDistance } from "../../app/rtk/hooks";
 
-export const CountryCard: FC<{ country: Country }> = ({ country }) => {
+export const CountryCard: FC<{ country: Country; geocode: Geocode }> = ({
+  country,
+  geocode,
+}) => {
   const [loaded, setLoaded] = useState<boolean>(false);
-  const onClick = useFetchCountry();
+  const { distanceInfo } = useGetDistance(country.latlng, geocode);
+  const dispatch = useDispatch();
+
+  const onClick = () => dispatch(setSelectedCountry(country.name));
 
   return (
-    <Card loaded={loaded} onClick={() => onClick(country.name)}>
+    <Card loaded={loaded} onClick={onClick}>
       <CountryHead country={country} setLoaded={setLoaded} />
-      <CountryInfo country={country} />
-      <CountryData country={country} />
+      <CountryInfo capital={country.capital} languages={country.languages} />
+      <CountryData
+        population={shortFormat(country.population)}
+        distanceInfo={distanceInfo}
+      />
     </Card>
   );
 };
