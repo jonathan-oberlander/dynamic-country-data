@@ -50,7 +50,7 @@ const MapView: FC<{ country: Country }> = ({ country }) => {
     <div className="content">
       <MapContainer
         center={[latlng[0], latlng[1]]}
-        zoom={7}
+        zoom={5}
         scrollWheelZoom={false}
         className="map-container"
       >
