@@ -9,6 +9,13 @@ export const store = configureStore({
     [geoCodeApi.reducerPath]: geoCodeApi.reducer,
     [countryApi.reducerPath]: countryApi.reducer,
   },
+  // Adding the api middleware enables caching, invalidation, polling,
+  // and other useful features of `rtk-query`.
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat([
+      geoCodeApi.middleware,
+      countryApi.middleware,
+    ]),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

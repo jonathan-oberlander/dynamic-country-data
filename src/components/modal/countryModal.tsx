@@ -35,7 +35,7 @@ export const CountryModalCard = () => {
     <Modal>
       <CountryModal onClick={onClick}>
         {!isFetching && country ? (
-          <MapView country={country[0]} />
+          <MapView country={country} />
         ) : (
           <div className="content">Loading...</div>
         )}

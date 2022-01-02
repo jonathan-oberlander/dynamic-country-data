@@ -28,7 +28,10 @@ export const countryApi = createApi({
         },
       }),
     }),
-    getCountryByName: build.query<Country[], { name: string; full: boolean }>({
+    getCountryByName: build.query<
+      Country | undefined,
+      { name: string; full: boolean }
+    >({
       query: ({ name, full }) => ({
         url: `/name/${name}`,
         method: "get",
@@ -37,12 +40,11 @@ export const countryApi = createApi({
         },
         providesTags: () => [{ type: "Countries", name }],
       }),
+      transformResponse: (baseQueryReturnValue: Country[], _, { name }) => {
+        return baseQueryReturnValue.find((c) => c.name === name);
+      },
     }),
   }),
 });
 
-export const {
-  useGetAllCountriesQuery,
-  useGetCountryByNameQuery,
-  useLazyGetCountryByNameQuery,
-} = countryApi;
+export const { useGetAllCountriesQuery, useGetCountryByNameQuery } = countryApi;

@@ -4,13 +4,15 @@ import { LanguageFilter } from "./components/language-filter/languageFilter";
 import { CountryModalCard } from "./components/modal/countryModal";
 import { SearchBar } from "./components/search-bar/searchBar";
 import { useOpenCountryModal } from "./app/rtk/selectors";
-import { Route, Switch } from "wouter";
+import { Link, Route, Switch } from "wouter";
 import { Title } from "./components/styled/typography";
+import StatTable from "./components/table/table";
 
 function Stat() {
   return (
     <Body>
       <Title>World countries statistics</Title>
+      <StatTable />
     </Body>
   );
 }
@@ -30,10 +32,17 @@ function Home() {
 
 function App() {
   return (
-    <Switch>
-      <Route path="/home" component={Home} />
-      <Route path="/stat" component={Stat} />
-    </Switch>
+    <div>
+      <nav>
+        <Link href="/">Home</Link>
+        {" | "}
+        <Link href="/stat">Table</Link>
+      </nav>
+      <Switch>
+        <Route path="/" component={Home} />
+        <Route path="/stat" component={Stat} />
+      </Switch>
+    </div>
   );
 }
 
