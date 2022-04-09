@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Country, Geocode } from "../../api/types";
+import { Country, Geocode } from "./types";
 
 export const geoCodeApi = createApi({
   reducerPath: "geocodeAPI",

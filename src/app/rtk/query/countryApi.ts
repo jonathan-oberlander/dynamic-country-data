@@ -1,8 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Country } from "../../api/types";
+import { Country } from "./types";
 
 const fields = [
   "alpha2Code",
+  "area",
   "capital",
   "flag",
   "name",

@@ -1,5 +1,5 @@
 import { FC, Dispatch, SetStateAction } from "react";
-import { Country } from "../../app/api/types";
+import { Country } from "../../app/rtk/query/types";
 import { countryCapitalTime } from "../../app/utils/utils";
 import {
   CardHead,

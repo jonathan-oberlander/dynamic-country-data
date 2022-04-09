@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Language } from "../../app/api/types";
+import { Language } from "../../app/rtk/query/types";
 import { Caption } from "../styled/typography";
 import {
   CardBody,

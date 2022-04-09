@@ -14,6 +14,12 @@ export const Heading = styled(Title)`
   font-size: 16px;
 `;
 
+export const AppTitle = styled(Title)`
+  font-weight: 400;
+  font-size: 24px;
+  color: #313131;
+`;
+
 export const Caption = styled.span`
   font-family: Lato;
   font-size: 12px;

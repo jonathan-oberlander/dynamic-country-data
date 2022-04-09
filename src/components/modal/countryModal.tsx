@@ -5,7 +5,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { modalRoot } from "../../index";
 import { useGetCountryByNameQuery } from "../../app/rtk/query/countryApi";
 import { setCountryModal } from "../../app/rtk/slice/coreSlice";
-import { Country } from "../../app/api/types";
+import { Country } from "../../app/rtk/query/types";
 import { CountryModal } from "./countryModal.style";
 import { useSelectedCountry } from "../../app/rtk/selectors";
 

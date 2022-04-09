@@ -59,6 +59,7 @@ export const useTableConfig = () => {
         capital: c.capital,
         population: shortFormat(c.population).toString(),
         languages: c.languages.map((l) => l.name).join(", "),
+        area: c?.area && shortFormat(c.area),
       })) ?? [],
     [data]
   );
@@ -77,6 +78,10 @@ export const useTableConfig = () => {
             accessor: "population",
           },
           {
+            Header: "Km²",
+            accessor: "area",
+          },
+          {
             Header: "Capital",
             accessor: "capital",
           },
@@ -84,24 +89,6 @@ export const useTableConfig = () => {
             Header: "Languages",
             accessor: "languages",
           },
-          // {
-          //   Header: "Alpha2 code",
-          //   accessor: "alpha2Code",
-          // },
-          // {
-          //   Header: "Flag",
-          //   accessor: "flag",
-          // },
-
-          // {
-          //   Header: "Currencies",
-          //   accessor: "currencies",
-          // },
-
-          // {
-          //   Header: "Coordinates",
-          //   accessor: "latlng",
-          // },
         ],
       },
     ],

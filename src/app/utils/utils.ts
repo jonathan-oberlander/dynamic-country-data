@@ -32,32 +32,33 @@ export function distanceFormat(val: number) {
   }).format(val);
 }
 
-export function countryCapitalTime(alpha2Code: string) {
+export function countryCapitalTime(alpha2Code: string): string {
   const mz = moment.tz.zonesForCountry(alpha2Code);
   return mz ? moment().tz(mz[0]).format("HH:mm") : "";
 }
 
-export function shortFormat(population: number) {
-  const p = population.toString().length;
+export function shortFormat(value: number): string {
+  const p = value.toString();
+  const len = p.length;
 
-  if (p <= 3) {
-    return population;
+  if (len <= 3) {
+    return p;
   }
 
-  if (p >= 4 && p < 6) {
+  if (len >= 4 && len < 6) {
     // 1.200 -> 1.2
-    return (population / 1000).toFixed(1) + "k";
+    return (value / 1000).toFixed(1) + "k";
   }
 
-  if (p >= 6 && p < 9) {
+  if (len >= 6 && len < 9) {
     // 1.200.300 -> 1.2
-    return (population / 1000000).toFixed(1) + "m";
+    return (value / 1000000).toFixed(1) + "m";
   }
 
-  if (p >= 9) {
+  if (len >= 9) {
     // 1.200.300.400 -> 1.2
-    return (population / 1000000000).toFixed(1) + "bn";
+    return (value / 1000000000).toFixed(1) + "bn";
   }
 
-  return population;
+  return p;
 }

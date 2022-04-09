@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import { CountryData } from "./countryData";
 import { CountryHead } from "./countryHead";
 import { CountryInfo } from "./countryInfo";
-import { Country, Geocode } from "../../app/api/types";
+import { Country, Geocode } from "../../app/rtk/query/types";
 import { Card } from "./countryCard.style";
 import { shortFormat } from "../../app/utils/utils";
 import { useDispatch } from "react-redux";

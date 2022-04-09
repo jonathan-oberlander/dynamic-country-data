@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
 export const Styles = styled.div`
-  padding: 1rem;
+  width: 640px;
 
   table {
     border-spacing: 0;
+    width: 100%;
     /* border: 1px solid black; */
 
     tr {
@@ -29,6 +30,9 @@ export const Styles = styled.div`
   }
 
   .pagination {
+    display: flex;
+    justify-content: space-between;
+    font-family: Lato;
     padding: 0.5rem;
   }
 `;

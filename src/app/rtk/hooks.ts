@@ -1,5 +1,5 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-import { Country, Geocode } from "../api/types";
+import { Country, Geocode } from "./query/types";
 import { getDistanceInKm } from "../utils/utils";
 import { useGetAllCountriesQuery } from "./query/countryApi";
 import { useGetGeocodeQuery } from "./query/geocodeApi";
@@ -33,13 +33,16 @@ export const useCountriesList = () => {
 };
 
 export const useGetDistance = (latlng: number[], geocode: Geocode) => {
-  const distance =
-    getDistanceInKm(
+  let distance = "";
+
+  if (latlng && geocode) {
+    distance = getDistanceInKm(
       latlng[0],
       geocode.latitude,
       latlng[1],
       geocode.longitude
-    ) ?? "";
+    );
+  }
 
   const distanceInfo =
     distance !== "NaN km" ? `${distance} from ${geocode.city}.` : "";
