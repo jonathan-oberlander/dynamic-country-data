@@ -30,6 +30,16 @@ export const Caption = styled.span`
   letter-spacing: normal;
 `;
 
+export const TableText = styled.span`
+  font-family: Lato;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+`;
+
 export const Small = styled(Caption)`
   font-size: 10px;
 `;

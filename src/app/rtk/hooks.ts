@@ -14,19 +14,23 @@ export const useCountriesList = () => {
   const { data: geocode } = useGetGeocodeQuery();
   const { search, languageFilter } = useCountryListGroup();
 
+  const lang = (c: Country) =>
+    languageFilter !== "none"
+      ? c.languages.map((l) => l.name === languageFilter && c)
+      : c;
+
+  const findCountry = (c: Country) => {
+    const reg = new RegExp("w*" + search + "w*", "gi");
+    return reg.test(c.name);
+  };
+
   const countryByLanguage = allCountries
-    ?.map((c) =>
-      languageFilter !== "none"
-        ? c.languages.map((l) => l.name === languageFilter && c)
-        : c
-    )
-    .flat()
+    ?.flatMap(lang)
     .filter(Boolean) as Country[];
 
-  const reg = new RegExp("\\w*" + search + "\\w*", "gi");
   const countries =
     search.length > 0
-      ? countryByLanguage?.filter((c) => reg.test(c.name))
+      ? countryByLanguage?.filter(findCountry)
       : countryByLanguage;
 
   return { countries, geocode };
@@ -45,7 +49,9 @@ export const useGetDistance = (latlng: number[], geocode: Geocode) => {
   }
 
   const distanceInfo =
-    distance !== "NaN km" ? `${distance} from ${geocode.city}.` : "";
+    distance && distance !== "NaN km"
+      ? `${distance} from ${geocode.city}.`
+      : "";
 
   return { distanceInfo };
 };

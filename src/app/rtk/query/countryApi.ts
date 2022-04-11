@@ -29,6 +29,7 @@ export const countryApi = createApi({
         },
       }),
     }),
+
     getCountryByName: build.query<
       Country | undefined,
       { name: string; full: boolean }
@@ -42,7 +43,9 @@ export const countryApi = createApi({
         providesTags: () => [{ type: "Countries", name }],
       }),
       transformResponse: (baseQueryReturnValue: Country[], _, { name }) => {
-        return baseQueryReturnValue.find((c) => c.name === name);
+        return baseQueryReturnValue.find((c) => {
+          return c.name === name;
+        });
       },
     }),
   }),

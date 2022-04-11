@@ -8,7 +8,7 @@ export const CountryList: React.FC = () => {
   return countries && geocode ? (
     <ListContainer>
       {countries.map((country) => (
-        <div key={country.name}>
+        <div key={country?.name}>
           <CountryCard country={country} geocode={geocode} />
         </div>
       ))}

@@ -38,7 +38,7 @@ export const Flag = styled.img`
   transform: scale(0.7);
 
   @media ${device.mobileL} {
-    width: 140px;
+    min-width: 140px;
     height: 100px;
     transform: scale(0.7);
   }

@@ -9,7 +9,7 @@ import {
   useTableConfig,
 } from "./table.config";
 import { Pagination } from "./pagination";
-import { Caption, Heading } from "../styled/typography";
+import { TableText, Heading } from "../styled/typography";
 
 const Table: FC<TableDefinition> = ({ columns, data }) => {
   const {
@@ -25,7 +25,7 @@ const Table: FC<TableDefinition> = ({ columns, data }) => {
       data,
       initialState: {
         hiddenColumns: [],
-        pageIndex: 1,
+        pageIndex: 0,
         pageSize: 10,
       } as TableState<TablePaginationHookFunctions> & TablePagination,
     },
@@ -55,7 +55,7 @@ const Table: FC<TableDefinition> = ({ columns, data }) => {
                 {row.cells.map((cell) => {
                   return (
                     <td {...cell.getCellProps()}>
-                      <Caption>{cell.render("Cell")}</Caption>
+                      <TableText>{cell.render("Cell")}</TableText>
                     </td>
                   );
                 })}
